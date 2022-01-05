@@ -8,12 +8,21 @@ class CarsService {
     ProxyState.cars = res.data.map((c) => new Car(c));
   }
 
-  removeCar(id) {
+  async removeCar(id) {
+    const res = await cwAPI.delete(`cars/${id}`);
     ProxyState.cars = ProxyState.cars.filter((c) => c.id !== id);
   }
-  createCar(carData) {
-    const car = new Car(carData);
-    ProxyState.cars = [...ProxyState.cars, car];
+
+  async createCar(carData) {
+    const res = await cwAPI.post("cars", carData);
+    ProxyState.cars = [new Car(res.data), ...ProxyState.cars];
+  }
+
+  async editCar(carData, id) {
+    const res = await cwAPI.put(`cars/${id}`, carData);
+    let editedCarIndex = ProxyState.cars.findIndex((c) => c.id == id);
+    ProxyState.cars.splice(editedCarIndex, 1, new Car(res.data));
+    ProxyState.cars = ProxyState.cars;
   }
 }
 
