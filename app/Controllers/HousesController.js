@@ -1,4 +1,5 @@
 import { ProxyState } from "../AppState.js";
+import { housesService } from "../Services/HousesService.js";
 
 function _drawHouses() {
   const houses = ProxyState.houses;
@@ -8,7 +9,9 @@ function _drawHouses() {
 }
 
 export class HousesController {
-  constructor() {}
+  constructor() {
+    housesService.getAllHouses();
+  }
 
   drawHouses() {
     _drawHouses();

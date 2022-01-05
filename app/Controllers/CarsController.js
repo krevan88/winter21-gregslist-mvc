@@ -59,7 +59,6 @@ export class CarsController {
   async removeCar(id) {
     try {
       const foundCar = ProxyState.cars.find((c) => c.id == id);
-      console.log("found car for delete", foundCar);
       if (
         await confirmation(`Are you sure you want to delete ${foundCar.model}?`)
       ) {
@@ -84,8 +83,6 @@ export class CarsController {
 
       document.getElementById("modal-body-slot").innerHTML =
         getCarform(foundCar);
-
-      console.log("found car in edit", foundCar);
     } catch (error) {
       toast(error.message);
       console.log(error.message);
